@@ -20,11 +20,13 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Uploaded Assignments
+                    View Students
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active"> Uploaded Assignments</li>
+                    <li class=""> <?php echo $_GET['class']; ?></li>
+                    <li class=""> <?php echo $_GET['cat']; ?></li>
+                    <li class="active"> View Students</li>
                 </ol>
             </section>
             <!-- Main content -->
@@ -58,35 +60,33 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <th>S.No</th>
-                                        <th>Assignment Description</th>
-                                        <th>Assignment File</th>
-                                        <th>Upload Date</th>
+                                        <th>Name</th>
+                                        <th>Username</th>
+                                        <th>Created</th>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $class = $_GET['class'];
                                         $cat = $_GET['cat'];
-                                        $subcat = $_GET['id'];
 
                                         $count = 1;
 
-                                        $sql = "SELECT * FROM assignments WHERE class='$class' AND category='$cat' AND subcategory='$subcat'";
+                                        $sql = "SELECT * FROM users WHERE category='$class' AND subcategory='$cat' ";
                                         $query = $conn->query($sql);
                                         if ($query->num_rows > 0) {
                                             while ($row = $query->fetch_assoc()) {
                                         ?>
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
-                                                    <td><?php echo $row['assignment_descp']; ?></td>
-                                                    <td><a href="./uploads/assignments/<?php echo $row['assign_file']; ?>" target="_blank">Click</a></td>
-                                                    <td><?php echo $row['date']; ?>
-                                                        <a href="deleteassignment.php?id=<?php echo $_GET['id']; ?>&cat=<?php echo $_GET['cat']; ?>&class=<?php echo $_GET['class']; ?>&assignid=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
-                                                    </td>
+                                                    <td><?php echo $row['name']; ?></td>
+                                                    <td><?php echo $row['username']; ?></td>
+                                                    <td><?php echo $row['created']; ?></td>
+                                                    
                                                 </tr>
                                         <?php
                                             }
                                         } else {
-                                            echo "<p>No Assignments uploaded! </p>";
+                                            echo "<p>No Students </p>";
                                         }
                                         ?>
                                     </tbody>
