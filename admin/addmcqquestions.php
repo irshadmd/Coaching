@@ -14,7 +14,6 @@
     input {
         border: 1px solid black;
     }
-
 </style>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -66,6 +65,45 @@
                     <div class="col-xs-12">
                         <div class="myprofile">
                             <form method="POST" action="addmcq_data.php?id=<?php echo $_GET['id']; ?>&cat=<?php echo $_GET['cat']; ?>&class=<?php echo $_GET['class']; ?>" enctype="multipart/form-data">
+                                <div class="form-group row testnamedrop">
+                                    <label for="testname" class="col-md-4 col-form-label text-md-right">Select existing Test Series</label>
+                                    <div class="col-md-6">
+                                        <select name="testnamedr" id="testname" class="form-control">
+                                            <?php
+                                            $class = $_GET['class'];
+                                            $cat = $_GET['cat'];
+                                            $subcat = $_GET['id'];
+                                            $sql = "SELECT DISTINCT test_name FROM mcqquestions WHERE class='$class' AND category='$cat' AND subcategory='$subcat'";
+                                            $query = $conn->query($sql);
+                                            if ($query->num_rows > 0) {
+                                                while ($row = $query->fetch_assoc()) {
+                                            ?>
+                                                    <option value="<?php echo $row['test_name']; ?>"><?php echo $row['test_name']; ?></option>
+                                            <?php
+                                                }
+                                            } else {
+                                                echo "<option>Create new test series no exsisting test series found</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row testnameinp">
+                                    <label for="testnamein" class="col-md-4 col-form-label text-md-right">New Test Series name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control newt" name="testnamein" id="testnamein">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="testdescp" class="col-md-4 col-form-label text-md-right">Test Description</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="testdescp" id="testdescp">
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary test">Create new test series</button>
+                                <hr>
                                 <div class="form-group row">
                                     <label for="heading" class="col-md-4 col-form-label text-md-right" style="font-weight: bold;font-size: 16px;">Enter the Question (with option) And Answer</label>
                                 </div>
@@ -132,6 +170,24 @@
         <?php include 'includes/footer.php'; ?>
     </div>
     <?php include 'includes/scripts.php'; ?>
+    <script>
+        $(document).ready(function() {
+            $(".testnamedrop").show();
+            $(".testnameinp").hide();
+            $(".test").click(function() {
+
+                $(".testnamedrop").toggle();
+                $(".testnameinp").toggle();
+
+                var name = $('.test').text();
+                if (name == "Create new test series") {
+                    $('.test').text("Add in existing Test series");
+                } else {
+                    $('.test').text("Create new test series");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
