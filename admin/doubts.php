@@ -135,6 +135,17 @@
                                             <?php
                                             }
                                             ?>
+                                            <?php 
+                                                if($row['permission']=='disabled'){
+                                            ?>
+                                                    <a href="doubtenable.php?id=<?php echo $row['id'];?>" class="btn btn-success">Enable</a>
+                                            <?php
+                                                }else{
+                                            ?>
+                                                    <a href="doubtdisable.php?id=<?php echo $row['id'];?>" class="btn btn-danger">Disable</a>
+                                            <?php
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                     <a href="doubtanswer.php?id=<?php echo $row['id']; ?>&uname=<?php echo $row['user_id'];?>" class="btn btn-block btn-primary reply">Reply</a>
