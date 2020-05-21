@@ -65,6 +65,19 @@
                     <div class="col-xs-12">
                         <div class="myprofile">
                             <form method="POST" action="addmcq_data.php?id=<?php echo $_GET['id']; ?>&cat=<?php echo $_GET['cat']; ?>&class=<?php echo $_GET['class']; ?>" enctype="multipart/form-data">
+                                <div class="form-group row">
+                                    <label for="testype" class="col-md-4 col-form-label text-md-right">Test Type</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" name="testype" id="testype">
+                                            <option value="testseries">Test Series</option>
+                                            <option value="testmcq">MCQ Question</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row testtimediv">
+
+                                </div>
+
                                 <div class="form-group row testnamedrop">
                                     <label for="testname" class="col-md-4 col-form-label text-md-right">Select existing Test Series</label>
                                     <div class="col-md-6">
@@ -171,7 +184,7 @@
     </div>
     <?php include 'includes/scripts.php'; ?>
     <script>
-        $(document).ready(function() {
+        $(function() {
             $(".testnamedrop").show();
             $(".testnameinp").hide();
             $(".test").click(function() {
@@ -184,6 +197,17 @@
                     $('.test').text("Add in existing Test series");
                 } else {
                     $('.test').text("Create new test series");
+                }
+            });
+
+            $("#testype").change(function() {
+                var selectedValue = $(this).val();
+                if (selectedValue == 'testmcq') {
+                    $('.testtimediv').find('.testtdiv').remove();
+                    var el = "<div class='testtdiv'> <label for = 'testtime' class = 'col-md-4 col-form-label text-md-right'> Test Time (<em>in minutes</em>) </label><div class = 'col-md-6' ><input type = 'number' class = 'form-control' name = 'testtime' id = 'testtime' required></div></div>";
+                    $('.testtimediv').append(el);
+                } else {
+                    $('.testtimediv').find('.testtdiv').remove();
                 }
             });
         });

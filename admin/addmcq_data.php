@@ -13,6 +13,8 @@ $fileNameCmps ="";
 $fileExtension = "";
 
 if (isset($_POST['mcqquestions'])) {
+    $testtype=$_POST['testype'];
+    $testtime=$_POST['testtime'];
 
     $test_namedr=$_POST['testnamedr'];
     $test_namein = $_POST['testnamein'];
@@ -115,8 +117,8 @@ if (isset($_POST['mcqquestions'])) {
     }
 
     
-    $sql="INSERT INTO mcqquestions (class,category,subcategory,test_name,test_descp,question,question_img,option1,option2,option3,option4,op1_img,op2_img,op3_img,op4_img,answer,date)
-            VALUES('$class','$cat','$subcat','$test_name','$test_descp','$question','$newFileName','$op1','$op2','$op3','$op4','$op1newFileName','$op2newFileName','$op3newFileName','$op4newFileName','$answer',NOW())";
+    $sql="INSERT INTO mcqquestions (class,category,subcategory,test_type,test_time,test_name,test_descp,question,question_img,option1,option2,option3,option4,op1_img,op2_img,op3_img,op4_img,answer,date)
+            VALUES('$class','$cat','$subcat','$testtype','$testtime','$test_name','$test_descp','$question','$newFileName','$op1','$op2','$op3','$op4','$op1newFileName','$op2newFileName','$op3newFileName','$op4newFileName','$answer',NOW())";
     if($conn->query($sql)){
         $_SESSION['success'] = 'Question uploaded!';
     }else{
