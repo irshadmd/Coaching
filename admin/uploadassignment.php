@@ -137,13 +137,13 @@
                                 <div class="form-group row">
                                     <label for="desp" class="col-md-4 col-form-label text-md-right">Assignment Discription</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" id="desp" name="desp">
+                                        <input type="text" class="form-control" id="desp" name="desp" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="file1" class="col-md-4 col-form-label text-md-right">Upload Assignment</label>
                                     <div class="col-md-6">
-                                        <input type="file" class="form-control" name="uploadedFile" id="uploadedFile" accept="application/pdf,application/vnd.ms-excel">
+                                        <input type="file" class="form-control" name="uploadedFile" id="uploadedFile" accept="application/pdf,application/vnd.ms-excel" required>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-flat" name="uploadAssignment"><i class="fa fa-check-square-o"></i> Upload</button>
