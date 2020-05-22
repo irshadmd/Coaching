@@ -75,7 +75,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row testtimediv">
-
+                                    <div class='testtdiv'> 
+                                    <label for='testtime' class='col-md-4 col-form-label text-md-right'> Test Time (<em>in minutes</em>) </label>
+                                        <div class='col-md-6'>
+                                            <input type='number' class='form-control' name='testtime' id='testtime' required>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group row testnamedrop">
@@ -128,6 +133,9 @@
                                         <label for="image"><i class="fa fa-camera"></i></label>
                                         <input type="file" name="uploadedFile" id="uploadedFile" accept="image/*">
                                     </div>
+                                </div>
+                                <div class="form-group row testtimediv2">
+
                                 </div>
                                 <div class="form-group row">
                                     <label for="op1" class="col-md-4 col-form-label text-md-right">Option 1</label>
@@ -202,12 +210,16 @@
 
             $("#testype").change(function() {
                 var selectedValue = $(this).val();
-                if (selectedValue == 'testmcq') {
+                if (selectedValue == 'testseries') {
                     $('.testtimediv').find('.testtdiv').remove();
+                    $('.testtimediv2').find('.testtdiv').remove();
                     var el = "<div class='testtdiv'> <label for = 'testtime' class = 'col-md-4 col-form-label text-md-right'> Test Time (<em>in minutes</em>) </label><div class = 'col-md-6' ><input type = 'number' class = 'form-control' name = 'testtime' id = 'testtime' required></div></div>";
                     $('.testtimediv').append(el);
                 } else {
                     $('.testtimediv').find('.testtdiv').remove();
+                    $('.testtimediv2').find('.testtdiv').remove();
+                    var el1 = "<div class='testtdiv'> <label for = 'testtime' class = 'col-md-4 col-form-label text-md-right'> Question Time (<em>in minutes</em>) </label><div class = 'col-md-6' ><input type = 'number' class = 'form-control' name = 'testtime' id = 'testtime' required></div></div>";
+                    $('.testtimediv2').append(el1);
                 }
             });
         });
