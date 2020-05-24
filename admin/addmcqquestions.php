@@ -196,7 +196,6 @@
             $(".testnamedrop").show();
             $(".testnameinp").hide();
             $(".test").click(function() {
-
                 $(".testnamedrop").toggle();
                 $(".testnameinp").toggle();
 
@@ -225,5 +224,4 @@
         });
     </script>
 </body>
-
 </html>
