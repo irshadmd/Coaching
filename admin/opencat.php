@@ -88,6 +88,7 @@
                 <!-- /.row -->
                 <a href="doubts.php?class=<?php echo $class; ?>&cat=<?php echo $catname; ?>" class="btn btn-github btn-block"> View Doubts</a>
                 <a href="viewstudents.php?class=<?php echo $class; ?>&cat=<?php echo $catname; ?>" class="btn btn-google btn-block"> View Students</a>
+                <a href="addnotification.php?class=<?php echo $class; ?>&cat=<?php echo $catname; ?>" class="btn btn-primary btn-block"> Add Announcement</a>
 
         </div>
         <?php include 'includes/footer.php'; ?>
