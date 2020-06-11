@@ -75,8 +75,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row testtimediv">
-                                    <div class='testtdiv'> 
-                                    <label for='testtime' class='col-md-4 col-form-label text-md-right'> Test Time (<em>in minutes</em>) </label>
+                                    <div class='testtdiv'>
+                                        <label for='testtime' class='col-md-4 col-form-label text-md-right'> Test Time (<em>in minutes</em>) </label>
                                         <div class='col-md-6'>
                                             <input type='number' class='form-control' name='testtime' id='testtime' required>
                                         </div>
@@ -87,22 +87,7 @@
                                     <label for="testname" class="col-md-4 col-form-label text-md-right">Select existing Test Series</label>
                                     <div class="col-md-6">
                                         <select name="testnamedr" id="testname" class="form-control">
-                                            <?php
-                                            $class = $_GET['class'];
-                                            $cat = $_GET['cat'];
-                                            $subcat = $_GET['id'];
-                                            $sql = "SELECT DISTINCT test_name FROM mcqquestions WHERE class='$class' AND category='$cat' AND subcategory='$subcat'";
-                                            $query = $conn->query($sql);
-                                            if ($query->num_rows > 0) {
-                                                while ($row = $query->fetch_assoc()) {
-                                            ?>
-                                                    <option value="<?php echo $row['test_name']; ?>"><?php echo $row['test_name']; ?></option>
-                                            <?php
-                                                }
-                                            } else {
-                                                echo "<option>Create new test series no exsisting test series found</option>";
-                                            }
-                                            ?>
+
                                         </select>
                                     </div>
                                 </div>
@@ -199,11 +184,20 @@
                 $(".testnamedrop").toggle();
                 $(".testnameinp").toggle();
 
+                var selVal = $("#testype").val();
                 var name = $('.test').text();
-                if (name == "Create new test series") {
-                    $('.test').text("Add in existing Test series");
+                if (selVal == "testseries") {
+                    if (name == "Create new test series") {
+                        $('.test').text("Add in existing Test series");
+                    } else {
+                        $('.test').text("Create new test series");
+                    }
                 } else {
-                    $('.test').text("Create new test series");
+                    if (name == "Create new MCQ") {
+                        $('.test').text("Add in existing MCQ");
+                    } else {
+                        $('.test').text("Create new MCQ");
+                    }
                 }
             });
 
@@ -214,14 +208,75 @@
                     $('.testtimediv2').find('.testtdiv').remove();
                     var el = "<div class='testtdiv'> <label for = 'testtime' class = 'col-md-4 col-form-label text-md-right'> Test Time (<em>in minutes</em>) </label><div class = 'col-md-6' ><input type = 'number' class = 'form-control' name = 'testtime' id = 'testtime' required></div></div>";
                     $('.testtimediv').append(el);
+
+                    $('.test').text("Add in existing Test series");
+
+                    $('.testnamedrop').find('label').text("Select existing Test Series");
+
+                    $('.testnameinp').find('label').text("New Test Series name");
+
+                    var url = 'getExistingNames.php?id=<?php echo $_GET['id']; ?>&cat=<?php echo $_GET['cat']; ?>&class=<?php echo $_GET['class']; ?>';
+                    console.log("checking", selectedValue);
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            selectedValue: selectedValue
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log("tested", data.ops);
+                            $("#testname").html(data.ops);
+                        }
+                    });
+
                 } else {
                     $('.testtimediv').find('.testtdiv').remove();
                     $('.testtimediv2').find('.testtdiv').remove();
                     var el1 = "<div class='testtdiv'> <label for = 'testtime' class = 'col-md-4 col-form-label text-md-right'> Question Time (<em>in minutes</em>) </label><div class = 'col-md-6' ><input type = 'number' class = 'form-control' name = 'testtime' id = 'testtime' required></div></div>";
                     $('.testtimediv2').append(el1);
+
+                    $('.test').text("Add in existing MCQ");
+
+                    $('.testnamedrop').find('label').text("Select existing MCQ");
+
+                    $('.testnameinp').find('label').text("New MCQ name");
+
+                    var url = 'getExistingNames.php?id=<?php echo $_GET['id']; ?>&cat=<?php echo $_GET['cat']; ?>&class=<?php echo $_GET['class']; ?>';
+                    console.log("checking", selectedValue);
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            selectedValue: selectedValue
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log("tested", data.ops);
+                            $("#testname").html(data.ops);
+                        }
+                    });
                 }
             });
+
+            var selVal2 = $("#testype").val();
+            var url = 'getExistingNames.php?id=<?php echo $_GET['id']; ?>&cat=<?php echo $_GET['cat']; ?>&class=<?php echo $_GET['class']; ?>';
+            console.log("checking", selVal2);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    selectedValue: selVal2
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log("tested", data.ops);
+                    $("#testname").html(data.ops);
+                }
+            });
+
         });
     </script>
 </body>
+
 </html>
